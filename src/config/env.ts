@@ -1,10 +1,12 @@
 import { configDotenv } from "dotenv";
 import z from "zod";
 
-configDotenv();
+if (process.env.APP_ENV != "production") {
+  configDotenv();
+}
 
 const envSchema = z.object({
-  PORT: z.coerce.number().int().positive().default(3000),
+  PORT: z.coerce.number().int().positive().default(8000),
   ALLOWED_ORIGINS: z.string(),
   APP_ENV: z.string(),
   DATABASE_URL: z.string(),
