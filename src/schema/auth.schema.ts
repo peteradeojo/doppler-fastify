@@ -21,6 +21,13 @@ export const emailVerificationSchema = z.object({
   code: z.string().length(6),
 });
 
+export const onboardingSchema = z.object({
+  industry: z.string(),
+  role: z.string(),
+  has_used_previous_tool: z.stringbool(),
+});
+
 export type LoginSchema = z.infer<typeof loginSchema>;
 export type RegisterSchema = z.infer<typeof registerSchema>;
 export type EmailVerificationSchema = z.infer<typeof emailVerificationSchema>;
+export type OnboardingSchema = z.infer<typeof onboardingSchema>;

@@ -1,8 +1,9 @@
 import {
   EmailVerificationSchema,
   LoginSchema,
+  OnboardingSchema,
   RegisterSchema,
-} from "@/config/schema/auth.schema";
+} from "@/schema/auth.schema";
 import { RequestWithBody } from "@/global";
 import { handleServiceResponse } from "@/lib/util";
 import { UserService } from "@/services/user.service";
@@ -46,5 +47,17 @@ export class AuthController {
     );
 
     return handleServiceResponse(reply, result);
+  }
+
+  static async collectOnboardingDetails(
+    request: RequestWithBody<OnboardingSchema>,
+    reply: FastifyReply,
+  ) {
+    const res = await new UserService().saveUserOnboardingDetails(
+      request.user!,
+      request.body,
+    );
+
+    return handleServiceResponse(reply, res);
   }
 }

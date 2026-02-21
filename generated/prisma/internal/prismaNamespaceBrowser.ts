@@ -51,7 +51,9 @@ export const AnyNull = runtime.AnyNull
 
 
 export const ModelName = {
-  User: 'User'
+  User: 'User',
+  OnboardingData: 'OnboardingData',
+  Source: 'Source'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -75,10 +77,37 @@ export const UserScalarFieldEnum = {
   email: 'email',
   email_verified_at: 'email_verified_at',
   name: 'name',
-  password: 'password'
+  password: 'password',
+  createdat: 'createdat',
+  updatedat: 'updatedat'
 } as const
 
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
+
+
+export const OnboardingDataScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  industry: 'industry',
+  role: 'role',
+  has_used_previous_tool: 'has_used_previous_tool',
+  createdat: 'createdat',
+  updatedat: 'updatedat'
+} as const
+
+export type OnboardingDataScalarFieldEnum = (typeof OnboardingDataScalarFieldEnum)[keyof typeof OnboardingDataScalarFieldEnum]
+
+
+export const SourceScalarFieldEnum = {
+  id: 'id',
+  token: 'token',
+  title: 'title',
+  createdat: 'createdat',
+  updatedat: 'updatedat',
+  userId: 'userId'
+} as const
+
+export type SourceScalarFieldEnum = (typeof SourceScalarFieldEnum)[keyof typeof SourceScalarFieldEnum]
 
 
 export const SortOrder = {

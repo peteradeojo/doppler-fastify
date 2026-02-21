@@ -3,12 +3,17 @@ import { sign } from "jsonwebtoken";
 import env from "@/config/env";
 import ms from "ms";
 import { logger, ServiceResponse } from "@/lib/util";
-import { LoginSchema, RegisterSchema } from "@/config/schema/auth.schema";
+import {
+  LoginSchema,
+  OnboardingSchema,
+  RegisterSchema,
+} from "@/schema/auth.schema";
 import { hashSync } from "bcrypt";
 import { EmailService } from "@/services/email.service";
 import { SafeUser } from "@/global";
 import { randomInt } from "node:crypto";
 import cache from "@/lib/cache";
+import { primitiveTypes } from "zod/v4/core/util.cjs";
 
 export class UserService {
   private readonly emailService;
@@ -134,6 +139,35 @@ export class UserService {
         "Unable to verify email. An error occurred",
         error,
       );
+    }
+  }
+
+  public async saveUserOnboardingDetails(
+    user: SafeUser,
+    data: OnboardingSchema,
+  ) {
+    try {
+      const r = await prisma.onboardingData.upsert({
+        where: {
+          userId: user.id,
+        },
+        create: {
+          userId: user.id,
+          has_used_previous_tool: data.has_used_previous_tool,
+          industry: data.industry,
+          role: data.role,
+        },
+        update: {
+          has_used_previous_tool: data.has_used_previous_tool,
+          industry: data.industry,
+          role: data.role,
+        },
+      });
+
+      return ServiceResponse.success(r, "Details saved");
+    } catch (error) {
+      logger.error(error);
+      return ServiceResponse.error("Error occurred", error);
     }
   }
 }

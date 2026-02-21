@@ -1,7 +1,7 @@
 import { FastifyReply } from "fastify";
 import pino from "pino";
 
-export const handleServiceResponse = <T extends Object = any>(
+export const handleServiceResponse = (
   reply: FastifyReply,
   data: ServiceResponse,
 ) => {
@@ -21,11 +21,15 @@ export class ServiceResponse {
     this.error = error;
   }
 
-  static success(data: any, message: string, code: number = 200) {
+  static success(data: any, message: string = "", code: number = 200) {
     return new ServiceResponse(code, data, message);
   }
 
-  static error<T = any>(message: string, error: any, code: number = 500) {
+  static error<T = any>(
+    message: string,
+    error: any = null,
+    code: number = 500,
+  ) {
     return new ServiceResponse(code, null, message, error);
   }
 

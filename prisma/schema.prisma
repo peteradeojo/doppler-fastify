@@ -14,11 +14,46 @@ datasource db {
 }
 
 model User {
-  id Int @id @default(autoincrement())
-  email String @unique
+  id                Int       @id @default(autoincrement())
+  email             String    @unique
   email_verified_at DateTime?
-  name String?
-  password String?
+  name              String?
+  password          String?
+
+  createdat DateTime @default(now()) @map("created_at")
+  updatedat DateTime @default(now()) @updatedAt @map("updated_at")
 
   // @@map("users")
+  onboardingData OnboardingData[]
+  sources        Source[]
+}
+
+model OnboardingData {
+  id                     Int      @id @default(autoincrement())
+  userId                 Int      @unique
+  industry               String
+  role                   String
+  has_used_previous_tool Boolean
+  createdat              DateTime @default(now()) @map("created_at")
+  updatedat              DateTime @default(now()) @updatedAt @map("updated_at")
+
+  user User @relation(fields: [userId], references: [id])
+
+  @@index([industry])
+  @@index([role])
+  @@index([industry, role])
+  @@map("onboarding")
+}
+
+model Source {
+  id        Int      @id @default(autoincrement())
+  token     String   @unique @default(uuid())
+  title     String   @db.VarChar(64)
+  createdat DateTime @default(now()) @map("created_at")
+  updatedat DateTime @default(now()) @updatedAt @map("updated_at")
+  userId    Int
+
+  user User @relation(fields: [userId], references: [id])
+
+  @@map("sources")
 }
