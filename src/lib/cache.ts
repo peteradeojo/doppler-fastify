@@ -2,11 +2,7 @@ import Redis from "ioredis";
 
 import env from "@/config/env";
 
-const cache = new Redis({
-    host: env.REDIS_HOST,
-    port: env.REDIS_PORT,
-    username: env.REDIS_USERNAME,
-    password: env.REDIS_PASSWORD,
+const cache = new Redis(env.REDIS_URL, {
     db: env.REDIS_DATABASE,
 });
 
