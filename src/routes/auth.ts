@@ -1,4 +1,4 @@
-import { loginSchema, registerSchema } from "@/config/schema/auth.schema";
+import { emailVerificationSchema, loginSchema, registerSchema } from "@/config/schema/auth.schema";
 import { AuthController } from "@/controllers/auth.controller";
 import passport from "@fastify/passport";
 import { FastifyInstance } from "fastify";
@@ -25,10 +25,21 @@ export function authRoutes(server: FastifyInstance, options: Object) {
   );
 
   server.get(
-    "/me",
+    "/",
     {
       preHandler: passport.authenticate("jwt", { session: false }),
     },
     AuthController.me,
+  );
+
+  server.post(
+    "/verify-email",
+    {
+      preHandler: passport.authenticate("jwt", { session: false }),
+      schema: {
+        body: emailVerificationSchema,
+      }
+    },
+    AuthController.verifyEmail,
   );
 }

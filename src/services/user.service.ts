@@ -2,12 +2,22 @@ import { prisma } from "@/lib/prisma";
 import { sign } from "jsonwebtoken";
 import env from "@/config/env";
 import ms from "ms";
-import { logger } from "@/lib/util";
+import { logger, ServiceResponse } from "@/lib/util";
 import { LoginSchema, RegisterSchema } from "@/config/schema/auth.schema";
 import { hashSync } from "bcrypt";
+import { EmailService } from "@/services/email.service";
+import { SafeUser } from "@/global";
+import { randomInt } from "node:crypto";
+import cache from "@/lib/cache";
 
 export class UserService {
-  public async login(data: LoginSchema): Promise<ServiceResponse<any>> {
+  private readonly emailService;
+
+  constructor() {
+    this.emailService = new EmailService();
+  }
+
+  public async login(data: LoginSchema): Promise<ServiceResponse> {
     try {
       const user = await prisma.user.findFirst({
         where: { email: data.email },
@@ -17,12 +27,11 @@ export class UserService {
       });
 
       if (!user) {
-        return {
-          statusCode: 400,
-          body: {
-            message: "Invalid credentials,",
-          },
-        };
+        return ServiceResponse.error("Invalid credentials", null, 400);
+      }
+
+      if (!user.email_verified_at) {
+        this.sendVerificationMail(user);
       }
 
       const token = sign(
@@ -36,21 +45,40 @@ export class UserService {
         },
       );
 
-      return {
-        body: {
-          message: "Login successful",
-          data: { token, user: { ...user, password: undefined } },
-        },
-      };
+      return ServiceResponse.success(
+        { token, user: { ...user, password: undefined } },
+        "Login successful",
+        200,
+      );
     } catch (error) {
       logger.error(error);
+      return ServiceResponse.error("An error occurred", error, 500);
+    }
+  }
 
-      return {
-        statusCode: 500,
-        body: {
-          message: error as string,
-        },
-      };
+  async sendVerificationMail(user: SafeUser, email?: string): Promise<boolean> {
+    if (user.email_verified_at != null) true;
+
+    const otpCode = randomInt(100000, 1000000);
+
+    try {
+      await cache.setex(
+        `email_verification:${email ?? user.email}`,
+        60 * 15,
+        otpCode,
+      );
+      const res = await this.emailService.sendMail(
+        "E-mail verification",
+        `Hi ${user.name}. You need to verify your email. <br>
+        Your verification code <b>${otpCode}</b>`,
+        [email || user.email],
+      );
+
+      logger.info(res);
+      return true;
+    } catch (error) {
+      logger.fatal(error);
+      return false;
     }
   }
 
@@ -66,32 +94,46 @@ export class UserService {
         },
       });
 
-      return {
-        body: {
-          message: "",
-          data: { user },
-        },
-        statusCode: 201,
-      };
+      this.sendVerificationMail(user);
+
+      return ServiceResponse.success({ user }, "Sign-up successful", 201);
     } catch (error) {
-      return {
-        statusCode: 500,
-        body: {
-          message: (error as any).message,
-          data: null,
-        },
-      };
+      return ServiceResponse.error("An error occurred!", error, 500);
     }
   }
 
   public async getUser(id: number): Promise<ServiceResponse> {
     const user = await prisma.user.findFirst({ where: { id } });
-    return {
-      statusCode: 200,
-      body: {
-        message: "User found",
-        data: user,
-      },
-    };
+    return ServiceResponse.success(
+      { user },
+      "User data retrieved successfully",
+      200,
+    );
+  }
+
+  public async verifyEmail(user: SafeUser, user_code: string) {
+    try {
+      const code = await cache.get(`email_verification:${user.email}`);
+
+      if (code == user_code) {
+        const _user = await prisma.user.update({
+          where: {
+            id: user.id,
+          },
+          data: {
+            email_verified_at: new Date(),
+          },
+        });
+        return ServiceResponse.success(_user, "E-mail verified successfully");
+      }
+
+      return ServiceResponse.error("E-mail verification failed", null, 400);
+    } catch (error) {
+      logger.error(error);
+      return ServiceResponse.error(
+        "Unable to verify email. An error occurred",
+        error,
+      );
+    }
   }
 }

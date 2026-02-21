@@ -14,6 +14,15 @@ const envSchema = z.object({
   JWT_EXPIRES_IN: z.string(),
   SESSION_SECRET_KEY: z.string(),
   SALT_ROUNDS: z.coerce.number(),
+  SMTP_HOST: z.string(),
+  SMTP_PORT: z.coerce.number().int().positive(),
+  SMTP_USERNAME: z.string(),
+  SMTP_PASSWORD: z.string(),
+  REDIS_HOST: z.string(),
+  REDIS_PORT: z.coerce.number().int().positive(),
+  REDIS_USERNAME: z.string(),
+  REDIS_PASSWORD: z.string(),
+  REDIS_DATABASE: z.coerce.number().int().max(15).optional(),
 });
 
 const parsedData = envSchema.safeParse(process.env);
