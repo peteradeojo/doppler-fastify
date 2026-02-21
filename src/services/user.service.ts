@@ -2,7 +2,7 @@ import { prisma } from "@/lib/prisma";
 import { sign } from "jsonwebtoken";
 import env from "@/config/env";
 import ms from "ms";
-import { logger } from "@/server";
+import { logger } from "@/lib/util";
 import { LoginSchema, RegisterSchema } from "@/config/schema/auth.schema";
 import { hashSync } from "bcrypt";
 

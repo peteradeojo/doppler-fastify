@@ -1,5 +1,6 @@
 import env from "@/config/env";
-import server, { logger } from "@/server";
+import server from "@/server";
+import { logger } from "@/lib/util";
 
 // import { readFileSync } from "node:fs";
 // import path from "node:path";
