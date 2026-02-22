@@ -10,6 +10,7 @@ export default async (server: FastifyInstance, opts: FastifyPluginOptions) => {
   );
 
   server.get("/", AppController.index);
+  server.get("/:id", AppController.show);
 
   server.post(
     "/",
