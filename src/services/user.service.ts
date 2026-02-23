@@ -29,6 +29,9 @@ export class UserService {
         omit: {
           password: false,
         },
+        include: {
+          onboardingData: true,
+        }
       });
 
       if (!user) {
