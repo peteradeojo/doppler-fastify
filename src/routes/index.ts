@@ -54,8 +54,7 @@ export async function routes(
         await cache.set("app_config", c);
       }
 
-      const res = ServiceResponse.success(JSON.parse(c));
-      return handleServiceResponse(reply, res);
+      return reply.status(200).send(JSON.parse(c));
     } catch (error) {
       logger.error(error);
       return handleServiceResponse(
