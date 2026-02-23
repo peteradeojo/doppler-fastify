@@ -30,6 +30,9 @@ export class ServiceResponse {
     error: any = null,
     code: number = 500,
   ) {
+    if (error instanceof Error) {
+      return new ServiceResponse(code, null, message, error.message);
+    }
     return new ServiceResponse(code, null, message, error);
   }
 

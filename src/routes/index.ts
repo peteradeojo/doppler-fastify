@@ -9,7 +9,8 @@ import { authRoutes } from "@/routes/auth";
 import appsRoute from "@/routes/apps.route";
 import passport from "@fastify/passport";
 import z from "zod";
-import { handleServiceResponse, ServiceResponse } from "@/lib/util";
+import { handleServiceResponse, logger, ServiceResponse } from "@/lib/util";
+import cache from "@/lib/cache";
 
 export async function routes(
   fastify: FastifyInstance,
@@ -37,6 +38,32 @@ export async function routes(
       return reply.status(200).send(data);
     },
   );
+
+  fastify.get("/config", async (request, reply) => {
+    try {
+      let c = await cache.get("app_config");
+      if (!c) {
+        c = JSON.stringify({
+          password_reset_mode: "code",
+          waitlist_open: "1",
+          open: "1",
+          onboarding: "1",
+          export: "0",
+          updated: new Date(),
+        });
+        await cache.set("admin:system_conf", c);
+      }
+
+      const res = ServiceResponse.success(JSON.parse(c));
+      return handleServiceResponse(reply, res);
+    } catch (error) {
+      logger.error(error);
+      return handleServiceResponse(
+        reply,
+        ServiceResponse.error("Unable to fetch config", error),
+      );
+    }
+  });
 
   fastify.register(authRoutes, {
     prefix: "auth",
