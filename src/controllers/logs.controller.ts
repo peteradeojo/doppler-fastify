@@ -1,4 +1,5 @@
 import { RequestWithBody } from "@/global";
+import { handleServiceResponse } from "@/lib/util";
 import { LogQuerySchema } from "@/schema/logs.schema";
 import LogService from "@/services/logs.service";
 import { FastifyReply } from "fastify";
@@ -12,5 +13,7 @@ export default class LogController {
       request.params.token,
       request.query,
     );
+
+    return handleServiceResponse(reply, logs);
   }
 }

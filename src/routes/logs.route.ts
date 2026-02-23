@@ -19,6 +19,10 @@ export default async function logRoutes(
         params: z.object({
           token: z.uuid(),
         }),
+        querystring: z.object({
+            cursor: z.string().nullable(),
+            count: z.coerce.number().default(20),
+        }),
       },
     },
     LogController.getAppLogs,

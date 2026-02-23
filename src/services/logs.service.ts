@@ -12,11 +12,13 @@ export default class LogService {
       appToken: token,
     };
 
-    if (options.cursor) {
+    if (Number(options.cursor)) {
       query.id = {
         gt: options.cursor,
       };
     }
+
+    console.log(query);
 
     const logs = await prisma.log.findMany({
       where: query,
@@ -26,6 +28,9 @@ export default class LogService {
       take: options.count,
     });
 
-    return ServiceResponse.success({ logs, cursor: logs[logs.length].id });
+    return ServiceResponse.success({
+      logs,
+      cursor: logs[Math.min(logs.length - 1, 0)]?.id ?? 0,
+    });
   }
 }
