@@ -358,14 +358,9 @@ export type OnboardingDataUncheckedUpdateManyInput = {
   updatedat?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
-export type OnboardingDataListRelationFilter = {
-  every?: Prisma.OnboardingDataWhereInput
-  some?: Prisma.OnboardingDataWhereInput
-  none?: Prisma.OnboardingDataWhereInput
-}
-
-export type OnboardingDataOrderByRelationAggregateInput = {
-  _count?: Prisma.SortOrder
+export type OnboardingDataNullableScalarRelationFilter = {
+  is?: Prisma.OnboardingDataWhereInput | null
+  isNot?: Prisma.OnboardingDataWhereInput | null
 }
 
 export type OnboardingDataCountOrderByAggregateInput = {
@@ -408,46 +403,36 @@ export type OnboardingDataSumOrderByAggregateInput = {
   userId?: Prisma.SortOrder
 }
 
-export type OnboardingDataCreateNestedManyWithoutUserInput = {
-  create?: Prisma.XOR<Prisma.OnboardingDataCreateWithoutUserInput, Prisma.OnboardingDataUncheckedCreateWithoutUserInput> | Prisma.OnboardingDataCreateWithoutUserInput[] | Prisma.OnboardingDataUncheckedCreateWithoutUserInput[]
-  connectOrCreate?: Prisma.OnboardingDataCreateOrConnectWithoutUserInput | Prisma.OnboardingDataCreateOrConnectWithoutUserInput[]
-  createMany?: Prisma.OnboardingDataCreateManyUserInputEnvelope
-  connect?: Prisma.OnboardingDataWhereUniqueInput | Prisma.OnboardingDataWhereUniqueInput[]
+export type OnboardingDataCreateNestedOneWithoutUserInput = {
+  create?: Prisma.XOR<Prisma.OnboardingDataCreateWithoutUserInput, Prisma.OnboardingDataUncheckedCreateWithoutUserInput>
+  connectOrCreate?: Prisma.OnboardingDataCreateOrConnectWithoutUserInput
+  connect?: Prisma.OnboardingDataWhereUniqueInput
 }
 
-export type OnboardingDataUncheckedCreateNestedManyWithoutUserInput = {
-  create?: Prisma.XOR<Prisma.OnboardingDataCreateWithoutUserInput, Prisma.OnboardingDataUncheckedCreateWithoutUserInput> | Prisma.OnboardingDataCreateWithoutUserInput[] | Prisma.OnboardingDataUncheckedCreateWithoutUserInput[]
-  connectOrCreate?: Prisma.OnboardingDataCreateOrConnectWithoutUserInput | Prisma.OnboardingDataCreateOrConnectWithoutUserInput[]
-  createMany?: Prisma.OnboardingDataCreateManyUserInputEnvelope
-  connect?: Prisma.OnboardingDataWhereUniqueInput | Prisma.OnboardingDataWhereUniqueInput[]
+export type OnboardingDataUncheckedCreateNestedOneWithoutUserInput = {
+  create?: Prisma.XOR<Prisma.OnboardingDataCreateWithoutUserInput, Prisma.OnboardingDataUncheckedCreateWithoutUserInput>
+  connectOrCreate?: Prisma.OnboardingDataCreateOrConnectWithoutUserInput
+  connect?: Prisma.OnboardingDataWhereUniqueInput
 }
 
-export type OnboardingDataUpdateManyWithoutUserNestedInput = {
-  create?: Prisma.XOR<Prisma.OnboardingDataCreateWithoutUserInput, Prisma.OnboardingDataUncheckedCreateWithoutUserInput> | Prisma.OnboardingDataCreateWithoutUserInput[] | Prisma.OnboardingDataUncheckedCreateWithoutUserInput[]
-  connectOrCreate?: Prisma.OnboardingDataCreateOrConnectWithoutUserInput | Prisma.OnboardingDataCreateOrConnectWithoutUserInput[]
-  upsert?: Prisma.OnboardingDataUpsertWithWhereUniqueWithoutUserInput | Prisma.OnboardingDataUpsertWithWhereUniqueWithoutUserInput[]
-  createMany?: Prisma.OnboardingDataCreateManyUserInputEnvelope
-  set?: Prisma.OnboardingDataWhereUniqueInput | Prisma.OnboardingDataWhereUniqueInput[]
-  disconnect?: Prisma.OnboardingDataWhereUniqueInput | Prisma.OnboardingDataWhereUniqueInput[]
-  delete?: Prisma.OnboardingDataWhereUniqueInput | Prisma.OnboardingDataWhereUniqueInput[]
-  connect?: Prisma.OnboardingDataWhereUniqueInput | Prisma.OnboardingDataWhereUniqueInput[]
-  update?: Prisma.OnboardingDataUpdateWithWhereUniqueWithoutUserInput | Prisma.OnboardingDataUpdateWithWhereUniqueWithoutUserInput[]
-  updateMany?: Prisma.OnboardingDataUpdateManyWithWhereWithoutUserInput | Prisma.OnboardingDataUpdateManyWithWhereWithoutUserInput[]
-  deleteMany?: Prisma.OnboardingDataScalarWhereInput | Prisma.OnboardingDataScalarWhereInput[]
+export type OnboardingDataUpdateOneWithoutUserNestedInput = {
+  create?: Prisma.XOR<Prisma.OnboardingDataCreateWithoutUserInput, Prisma.OnboardingDataUncheckedCreateWithoutUserInput>
+  connectOrCreate?: Prisma.OnboardingDataCreateOrConnectWithoutUserInput
+  upsert?: Prisma.OnboardingDataUpsertWithoutUserInput
+  disconnect?: Prisma.OnboardingDataWhereInput | boolean
+  delete?: Prisma.OnboardingDataWhereInput | boolean
+  connect?: Prisma.OnboardingDataWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.OnboardingDataUpdateToOneWithWhereWithoutUserInput, Prisma.OnboardingDataUpdateWithoutUserInput>, Prisma.OnboardingDataUncheckedUpdateWithoutUserInput>
 }
 
-export type OnboardingDataUncheckedUpdateManyWithoutUserNestedInput = {
-  create?: Prisma.XOR<Prisma.OnboardingDataCreateWithoutUserInput, Prisma.OnboardingDataUncheckedCreateWithoutUserInput> | Prisma.OnboardingDataCreateWithoutUserInput[] | Prisma.OnboardingDataUncheckedCreateWithoutUserInput[]
-  connectOrCreate?: Prisma.OnboardingDataCreateOrConnectWithoutUserInput | Prisma.OnboardingDataCreateOrConnectWithoutUserInput[]
-  upsert?: Prisma.OnboardingDataUpsertWithWhereUniqueWithoutUserInput | Prisma.OnboardingDataUpsertWithWhereUniqueWithoutUserInput[]
-  createMany?: Prisma.OnboardingDataCreateManyUserInputEnvelope
-  set?: Prisma.OnboardingDataWhereUniqueInput | Prisma.OnboardingDataWhereUniqueInput[]
-  disconnect?: Prisma.OnboardingDataWhereUniqueInput | Prisma.OnboardingDataWhereUniqueInput[]
-  delete?: Prisma.OnboardingDataWhereUniqueInput | Prisma.OnboardingDataWhereUniqueInput[]
-  connect?: Prisma.OnboardingDataWhereUniqueInput | Prisma.OnboardingDataWhereUniqueInput[]
-  update?: Prisma.OnboardingDataUpdateWithWhereUniqueWithoutUserInput | Prisma.OnboardingDataUpdateWithWhereUniqueWithoutUserInput[]
-  updateMany?: Prisma.OnboardingDataUpdateManyWithWhereWithoutUserInput | Prisma.OnboardingDataUpdateManyWithWhereWithoutUserInput[]
-  deleteMany?: Prisma.OnboardingDataScalarWhereInput | Prisma.OnboardingDataScalarWhereInput[]
+export type OnboardingDataUncheckedUpdateOneWithoutUserNestedInput = {
+  create?: Prisma.XOR<Prisma.OnboardingDataCreateWithoutUserInput, Prisma.OnboardingDataUncheckedCreateWithoutUserInput>
+  connectOrCreate?: Prisma.OnboardingDataCreateOrConnectWithoutUserInput
+  upsert?: Prisma.OnboardingDataUpsertWithoutUserInput
+  disconnect?: Prisma.OnboardingDataWhereInput | boolean
+  delete?: Prisma.OnboardingDataWhereInput | boolean
+  connect?: Prisma.OnboardingDataWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.OnboardingDataUpdateToOneWithWhereWithoutUserInput, Prisma.OnboardingDataUpdateWithoutUserInput>, Prisma.OnboardingDataUncheckedUpdateWithoutUserInput>
 }
 
 export type BoolFieldUpdateOperationsInput = {
@@ -476,47 +461,15 @@ export type OnboardingDataCreateOrConnectWithoutUserInput = {
   create: Prisma.XOR<Prisma.OnboardingDataCreateWithoutUserInput, Prisma.OnboardingDataUncheckedCreateWithoutUserInput>
 }
 
-export type OnboardingDataCreateManyUserInputEnvelope = {
-  data: Prisma.OnboardingDataCreateManyUserInput | Prisma.OnboardingDataCreateManyUserInput[]
-  skipDuplicates?: boolean
-}
-
-export type OnboardingDataUpsertWithWhereUniqueWithoutUserInput = {
-  where: Prisma.OnboardingDataWhereUniqueInput
+export type OnboardingDataUpsertWithoutUserInput = {
   update: Prisma.XOR<Prisma.OnboardingDataUpdateWithoutUserInput, Prisma.OnboardingDataUncheckedUpdateWithoutUserInput>
   create: Prisma.XOR<Prisma.OnboardingDataCreateWithoutUserInput, Prisma.OnboardingDataUncheckedCreateWithoutUserInput>
+  where?: Prisma.OnboardingDataWhereInput
 }
 
-export type OnboardingDataUpdateWithWhereUniqueWithoutUserInput = {
-  where: Prisma.OnboardingDataWhereUniqueInput
+export type OnboardingDataUpdateToOneWithWhereWithoutUserInput = {
+  where?: Prisma.OnboardingDataWhereInput
   data: Prisma.XOR<Prisma.OnboardingDataUpdateWithoutUserInput, Prisma.OnboardingDataUncheckedUpdateWithoutUserInput>
-}
-
-export type OnboardingDataUpdateManyWithWhereWithoutUserInput = {
-  where: Prisma.OnboardingDataScalarWhereInput
-  data: Prisma.XOR<Prisma.OnboardingDataUpdateManyMutationInput, Prisma.OnboardingDataUncheckedUpdateManyWithoutUserInput>
-}
-
-export type OnboardingDataScalarWhereInput = {
-  AND?: Prisma.OnboardingDataScalarWhereInput | Prisma.OnboardingDataScalarWhereInput[]
-  OR?: Prisma.OnboardingDataScalarWhereInput[]
-  NOT?: Prisma.OnboardingDataScalarWhereInput | Prisma.OnboardingDataScalarWhereInput[]
-  id?: Prisma.IntFilter<"OnboardingData"> | number
-  userId?: Prisma.IntFilter<"OnboardingData"> | number
-  industry?: Prisma.StringFilter<"OnboardingData"> | string
-  role?: Prisma.StringFilter<"OnboardingData"> | string
-  has_used_previous_tool?: Prisma.BoolFilter<"OnboardingData"> | boolean
-  createdat?: Prisma.DateTimeFilter<"OnboardingData"> | Date | string
-  updatedat?: Prisma.DateTimeFilter<"OnboardingData"> | Date | string
-}
-
-export type OnboardingDataCreateManyUserInput = {
-  id?: number
-  industry: string
-  role: string
-  has_used_previous_tool: boolean
-  createdat?: Date | string
-  updatedat?: Date | string
 }
 
 export type OnboardingDataUpdateWithoutUserInput = {
@@ -528,15 +481,6 @@ export type OnboardingDataUpdateWithoutUserInput = {
 }
 
 export type OnboardingDataUncheckedUpdateWithoutUserInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
-  industry?: Prisma.StringFieldUpdateOperationsInput | string
-  role?: Prisma.StringFieldUpdateOperationsInput | string
-  has_used_previous_tool?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  createdat?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedat?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-}
-
-export type OnboardingDataUncheckedUpdateManyWithoutUserInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   industry?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.StringFieldUpdateOperationsInput | string

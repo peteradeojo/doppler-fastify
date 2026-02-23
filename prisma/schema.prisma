@@ -24,7 +24,7 @@ model User {
   updatedat DateTime @default(now()) @updatedAt @map("updated_at")
 
   // @@map("users")
-  onboardingData OnboardingData[]
+  onboardingData OnboardingData?
   sources        Source[]
 }
 
