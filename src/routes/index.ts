@@ -51,7 +51,7 @@ export async function routes(
           export: "0",
           updated: new Date(),
         });
-        await cache.set("admin:system_conf", c);
+        await cache.set("app_config", c);
       }
 
       const res = ServiceResponse.success(JSON.parse(c));
