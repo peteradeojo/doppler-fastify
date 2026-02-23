@@ -53,7 +53,32 @@ model Source {
   updatedat DateTime @default(now()) @updatedAt @map("updated_at")
   userId    Int
 
-  user User @relation(fields: [userId], references: [id])
+  user User  @relation(fields: [userId], references: [id])
+  logs Log[]
 
   @@map("sources")
+}
+
+enum LogLevel {
+  info
+  error
+  critical
+  debug
+  warn
+}
+
+model Log {
+  id        Int      @id @default(autoincrement())
+  text      String
+  appToken  String   @map("apptoken")
+  level     LogLevel   @default(error)
+  context   Json?
+  ip        String?
+  tags      Json?
+  createdat DateTime @default(now())
+  updatedat DateTime @default(now()) @updatedAt
+
+  app Source? @relation(fields: [appToken], references: [token])
+
+  @@map("logs")
 }

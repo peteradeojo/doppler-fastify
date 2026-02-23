@@ -229,6 +229,7 @@ export type SourceWhereInput = {
   updatedat?: Prisma.DateTimeFilter<"Source"> | Date | string
   userId?: Prisma.IntFilter<"Source"> | number
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  logs?: Prisma.LogListRelationFilter
 }
 
 export type SourceOrderByWithRelationInput = {
@@ -239,6 +240,7 @@ export type SourceOrderByWithRelationInput = {
   updatedat?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   user?: Prisma.UserOrderByWithRelationInput
+  logs?: Prisma.LogOrderByRelationAggregateInput
 }
 
 export type SourceWhereUniqueInput = Prisma.AtLeast<{
@@ -252,6 +254,7 @@ export type SourceWhereUniqueInput = Prisma.AtLeast<{
   updatedat?: Prisma.DateTimeFilter<"Source"> | Date | string
   userId?: Prisma.IntFilter<"Source"> | number
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  logs?: Prisma.LogListRelationFilter
 }, "id" | "token">
 
 export type SourceOrderByWithAggregationInput = {
@@ -286,6 +289,7 @@ export type SourceCreateInput = {
   createdat?: Date | string
   updatedat?: Date | string
   user: Prisma.UserCreateNestedOneWithoutSourcesInput
+  logs?: Prisma.LogCreateNestedManyWithoutAppInput
 }
 
 export type SourceUncheckedCreateInput = {
@@ -295,6 +299,7 @@ export type SourceUncheckedCreateInput = {
   createdat?: Date | string
   updatedat?: Date | string
   userId: number
+  logs?: Prisma.LogUncheckedCreateNestedManyWithoutAppInput
 }
 
 export type SourceUpdateInput = {
@@ -303,6 +308,7 @@ export type SourceUpdateInput = {
   createdat?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedat?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutSourcesNestedInput
+  logs?: Prisma.LogUpdateManyWithoutAppNestedInput
 }
 
 export type SourceUncheckedUpdateInput = {
@@ -312,6 +318,7 @@ export type SourceUncheckedUpdateInput = {
   createdat?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedat?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   userId?: Prisma.IntFieldUpdateOperationsInput | number
+  logs?: Prisma.LogUncheckedUpdateManyWithoutAppNestedInput
 }
 
 export type SourceCreateManyInput = {
@@ -386,6 +393,11 @@ export type SourceSumOrderByAggregateInput = {
   userId?: Prisma.SortOrder
 }
 
+export type SourceNullableScalarRelationFilter = {
+  is?: Prisma.SourceWhereInput | null
+  isNot?: Prisma.SourceWhereInput | null
+}
+
 export type SourceCreateNestedManyWithoutUserInput = {
   create?: Prisma.XOR<Prisma.SourceCreateWithoutUserInput, Prisma.SourceUncheckedCreateWithoutUserInput> | Prisma.SourceCreateWithoutUserInput[] | Prisma.SourceUncheckedCreateWithoutUserInput[]
   connectOrCreate?: Prisma.SourceCreateOrConnectWithoutUserInput | Prisma.SourceCreateOrConnectWithoutUserInput[]
@@ -428,11 +440,28 @@ export type SourceUncheckedUpdateManyWithoutUserNestedInput = {
   deleteMany?: Prisma.SourceScalarWhereInput | Prisma.SourceScalarWhereInput[]
 }
 
+export type SourceCreateNestedOneWithoutLogsInput = {
+  create?: Prisma.XOR<Prisma.SourceCreateWithoutLogsInput, Prisma.SourceUncheckedCreateWithoutLogsInput>
+  connectOrCreate?: Prisma.SourceCreateOrConnectWithoutLogsInput
+  connect?: Prisma.SourceWhereUniqueInput
+}
+
+export type SourceUpdateOneWithoutLogsNestedInput = {
+  create?: Prisma.XOR<Prisma.SourceCreateWithoutLogsInput, Prisma.SourceUncheckedCreateWithoutLogsInput>
+  connectOrCreate?: Prisma.SourceCreateOrConnectWithoutLogsInput
+  upsert?: Prisma.SourceUpsertWithoutLogsInput
+  disconnect?: Prisma.SourceWhereInput | boolean
+  delete?: Prisma.SourceWhereInput | boolean
+  connect?: Prisma.SourceWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.SourceUpdateToOneWithWhereWithoutLogsInput, Prisma.SourceUpdateWithoutLogsInput>, Prisma.SourceUncheckedUpdateWithoutLogsInput>
+}
+
 export type SourceCreateWithoutUserInput = {
   token?: string
   title: string
   createdat?: Date | string
   updatedat?: Date | string
+  logs?: Prisma.LogCreateNestedManyWithoutAppInput
 }
 
 export type SourceUncheckedCreateWithoutUserInput = {
@@ -441,6 +470,7 @@ export type SourceUncheckedCreateWithoutUserInput = {
   title: string
   createdat?: Date | string
   updatedat?: Date | string
+  logs?: Prisma.LogUncheckedCreateNestedManyWithoutAppInput
 }
 
 export type SourceCreateOrConnectWithoutUserInput = {
@@ -481,6 +511,56 @@ export type SourceScalarWhereInput = {
   userId?: Prisma.IntFilter<"Source"> | number
 }
 
+export type SourceCreateWithoutLogsInput = {
+  token?: string
+  title: string
+  createdat?: Date | string
+  updatedat?: Date | string
+  user: Prisma.UserCreateNestedOneWithoutSourcesInput
+}
+
+export type SourceUncheckedCreateWithoutLogsInput = {
+  id?: number
+  token?: string
+  title: string
+  createdat?: Date | string
+  updatedat?: Date | string
+  userId: number
+}
+
+export type SourceCreateOrConnectWithoutLogsInput = {
+  where: Prisma.SourceWhereUniqueInput
+  create: Prisma.XOR<Prisma.SourceCreateWithoutLogsInput, Prisma.SourceUncheckedCreateWithoutLogsInput>
+}
+
+export type SourceUpsertWithoutLogsInput = {
+  update: Prisma.XOR<Prisma.SourceUpdateWithoutLogsInput, Prisma.SourceUncheckedUpdateWithoutLogsInput>
+  create: Prisma.XOR<Prisma.SourceCreateWithoutLogsInput, Prisma.SourceUncheckedCreateWithoutLogsInput>
+  where?: Prisma.SourceWhereInput
+}
+
+export type SourceUpdateToOneWithWhereWithoutLogsInput = {
+  where?: Prisma.SourceWhereInput
+  data: Prisma.XOR<Prisma.SourceUpdateWithoutLogsInput, Prisma.SourceUncheckedUpdateWithoutLogsInput>
+}
+
+export type SourceUpdateWithoutLogsInput = {
+  token?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  createdat?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedat?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  user?: Prisma.UserUpdateOneRequiredWithoutSourcesNestedInput
+}
+
+export type SourceUncheckedUpdateWithoutLogsInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  token?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  createdat?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedat?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  userId?: Prisma.IntFieldUpdateOperationsInput | number
+}
+
 export type SourceCreateManyUserInput = {
   id?: number
   token?: string
@@ -494,6 +574,7 @@ export type SourceUpdateWithoutUserInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   createdat?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedat?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  logs?: Prisma.LogUpdateManyWithoutAppNestedInput
 }
 
 export type SourceUncheckedUpdateWithoutUserInput = {
@@ -502,6 +583,7 @@ export type SourceUncheckedUpdateWithoutUserInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   createdat?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedat?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  logs?: Prisma.LogUncheckedUpdateManyWithoutAppNestedInput
 }
 
 export type SourceUncheckedUpdateManyWithoutUserInput = {
@@ -513,6 +595,35 @@ export type SourceUncheckedUpdateManyWithoutUserInput = {
 }
 
 
+/**
+ * Count Type SourceCountOutputType
+ */
+
+export type SourceCountOutputType = {
+  logs: number
+}
+
+export type SourceCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  logs?: boolean | SourceCountOutputTypeCountLogsArgs
+}
+
+/**
+ * SourceCountOutputType without action
+ */
+export type SourceCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the SourceCountOutputType
+   */
+  select?: Prisma.SourceCountOutputTypeSelect<ExtArgs> | null
+}
+
+/**
+ * SourceCountOutputType without action
+ */
+export type SourceCountOutputTypeCountLogsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.LogWhereInput
+}
+
 
 export type SourceSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -522,6 +633,8 @@ export type SourceSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   updatedat?: boolean
   userId?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  logs?: boolean | Prisma.Source$logsArgs<ExtArgs>
+  _count?: boolean | Prisma.SourceCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["source"]>
 
 export type SourceSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -556,6 +669,8 @@ export type SourceSelectScalar = {
 export type SourceOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "token" | "title" | "createdat" | "updatedat" | "userId", ExtArgs["result"]["source"]>
 export type SourceInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  logs?: boolean | Prisma.Source$logsArgs<ExtArgs>
+  _count?: boolean | Prisma.SourceCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type SourceIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -568,6 +683,7 @@ export type $SourcePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
   name: "Source"
   objects: {
     user: Prisma.$UserPayload<ExtArgs>
+    logs: Prisma.$LogPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
@@ -971,6 +1087,7 @@ readonly fields: SourceFieldRefs;
 export interface Prisma__SourceClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   user<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  logs<T extends Prisma.Source$logsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Source$logsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$LogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1399,6 +1516,30 @@ export type SourceDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Intern
    * Limit how many Sources to delete.
    */
   limit?: number
+}
+
+/**
+ * Source.logs
+ */
+export type Source$logsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Log
+   */
+  select?: Prisma.LogSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Log
+   */
+  omit?: Prisma.LogOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.LogInclude<ExtArgs> | null
+  where?: Prisma.LogWhereInput
+  orderBy?: Prisma.LogOrderByWithRelationInput | Prisma.LogOrderByWithRelationInput[]
+  cursor?: Prisma.LogWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.LogScalarFieldEnum | Prisma.LogScalarFieldEnum[]
 }
 
 /**

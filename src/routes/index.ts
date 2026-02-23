@@ -11,6 +11,7 @@ import passport from "@fastify/passport";
 import z from "zod";
 import { handleServiceResponse, logger, ServiceResponse } from "@/lib/util";
 import cache from "@/lib/cache";
+import logRoutes from "@/routes/logs.route";
 
 export async function routes(
   fastify: FastifyInstance,
@@ -71,6 +72,10 @@ export async function routes(
   fastify.register(appsRoute, {
     prefix: "apps",
   });
+
+  fastify.register(logRoutes, {
+    prefix: '/logs',
+  })
 
   // fastify.setErrorHandler((error, request, reply) => {});
 }

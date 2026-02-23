@@ -11,4 +11,5 @@
 export type * from './models/User'
 export type * from './models/OnboardingData'
 export type * from './models/Source'
+export type * from './models/Log'
 export type * from './commonInputTypes'

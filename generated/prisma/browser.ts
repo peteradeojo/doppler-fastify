@@ -32,3 +32,8 @@ export type OnboardingData = Prisma.OnboardingDataModel
  * 
  */
 export type Source = Prisma.SourceModel
+/**
+ * Model Log
+ * 
+ */
+export type Log = Prisma.LogModel

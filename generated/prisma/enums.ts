@@ -9,7 +9,12 @@
 * 🟢 You can import this file directly.
 */
 
+export const LogLevel = {
+  info: 'info',
+  error: 'error',
+  critical: 'critical',
+  debug: 'debug',
+  warn: 'warn'
+} as const
 
-
-// This file is empty because there are no enums in the schema.
-export {}
+export type LogLevel = (typeof LogLevel)[keyof typeof LogLevel]
