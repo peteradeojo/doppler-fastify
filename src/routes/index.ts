@@ -77,5 +77,9 @@ export async function routes(
     prefix: '/logs',
   })
 
+  fastify.get("/health", function (request, reply) {
+    return {ok: true};
+  });
+
   // fastify.setErrorHandler((error, request, reply) => {});
 }
