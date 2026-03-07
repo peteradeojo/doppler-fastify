@@ -16,4 +16,9 @@ export default class LogController {
 
     return handleServiceResponse(reply, logs);
   }
+
+  static async deleteLogs(request: RequestWithBody<null, {token: string}>, reply: FastifyReply) {
+    const response = await new LogService().deleteAppLogs(request.params.token);
+    return handleServiceResponse(reply, response);
+  }
 }

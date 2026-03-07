@@ -12,9 +12,9 @@ export default class LogService {
       appToken: token,
     };
 
-    if (Number(options.cursor)) {
+    if (options.cursor != 'null' && (options.cursor as unknown as string)?.length >= 1) {
       query.id = {
-        gt: options.cursor,
+        gt: Number(options.cursor) || 0,
       };
     }
 
@@ -32,5 +32,15 @@ export default class LogService {
       logs,
       cursor: logs[Math.min(logs.length - 1, 0)]?.id ?? 0,
     });
+  }
+
+  async deleteAppLogs(token: string) {
+    const d = await prisma.log.deleteMany({
+      where: {
+        appToken: token,
+      }
+    });
+
+    return ServiceResponse.success(d, "Logs deleted succesfully", 200);
   }
 }

@@ -27,6 +27,7 @@ const app: FastifyPluginAsync = async (fastify) => {
   await fastify.register(helmet);
   await fastify.register(cors, {
     origin: env.ALLOWED_ORIGINS.split(","),
+    methods: '*'
   });
 
   await fastify.register(routes, { prefix: "v1" });

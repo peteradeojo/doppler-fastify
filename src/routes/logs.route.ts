@@ -27,4 +27,12 @@ export default async function logRoutes(
     },
     LogController.getAppLogs,
   );
+
+  server.delete("/:token", {
+    schema: {
+      params: z.object({
+        token: z.uuid(),
+      }),
+    }
+  }, LogController.deleteLogs);
 }
