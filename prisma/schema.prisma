@@ -63,6 +63,7 @@ enum LogLevel {
   info
   error
   critical
+  fatal
   debug
   warn
 }
