@@ -13,6 +13,7 @@ export const LogLevel = {
   info: 'info',
   error: 'error',
   critical: 'critical',
+  fatal: 'fatal',
   debug: 'debug',
   warn: 'warn'
 } as const
